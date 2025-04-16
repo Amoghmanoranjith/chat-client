@@ -16,7 +16,8 @@ function Chat() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
-  const ENDPOINT = "http://localhost:5000";
+  const ENDPOINT = import.meta.env.VITE_BACKEND_URL;
+  console.log(ENDPOINT)
   const location = useLocation();
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);

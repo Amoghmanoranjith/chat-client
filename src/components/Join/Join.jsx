@@ -5,6 +5,8 @@ import "./Join.css";
 function Join() {
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
+  const ENDPOINT = import.meta.env.VITE_BACKEND_URL;
+  console.log(ENDPOINT)
   return (
     <div className="joinOuterContainer">
       <div className="joinInnerContainer">
