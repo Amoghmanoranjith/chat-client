@@ -2,7 +2,6 @@ import React from "react";
 import "./Message.css";
 import ReactEmoji from "react-emoji";
 function Message({ message: { user, text }, name }) {
-  //   console.log(user, text, "child comp");
   let isSentByCurrentUser = false;
   const trimmedName = name.trim().toLowerCase();
   if (user === trimmedName) {

@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
-import io from "socket.io-client";
 import "./Chat.css";
 import InfoBar from "../InfoBar/InfoBar";
 import Input from "../Input/Input";
 import Messages from "../Messages/Messages";
 import TextContainer from "../TextContainer/TextContainer";
-
-let socket;
+import socket from "../socket";
 
 function Chat() {
   const [name, setName] = useState("");
@@ -16,55 +14,33 @@ function Chat() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
-  const ENDPOINT = import.meta.env.VITE_BACKEND_URL;
-  console.log(ENDPOINT)
+  const [role, setRole] = useState("")
   const location = useLocation();
+  const ENDPOINT = import.meta.env.VITE_BACKEND_URL;
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
-
-    socket = io(ENDPOINT, { transports: ["websocket"] });
-
     setName(name);
     setRoom(room);
+    console.log("int chat.jsx",name)
+    const handleJoinMessage = (msg) => {
+      // console.log("Role assigned:", role);
+      // console.log("Previous messages:", messages);
+  
+      // setMessages(messages);
+      // optionally store role in state if needed
+      console.log(msg)
+    };
+    socket.on("joinMessage", handleJoinMessage)
 
-    socket.emit("join", { name, room }, (error) => {
-      if (error) {
-        alert(error);
-      }
-    });
   }, [ENDPOINT, location.search]);
-
-  // useEffect(() => {
-  //   socket.on("message", (message) => {
-  //     setMessages((messages) => [...messages, message]);
-  //   });
-
-  //   socket.on("roomData", ({ users }) => {
-  //     setUsers(users);
-  //   });
-  // }, []);
-  useEffect(() => {
-    const handleMessage = (message) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
-    };
-
-    const handleRoomData = ({ users }) => {
-      setUsers(users);
-    };
-
-    socket.on("message", handleMessage);
-    socket.on("roomData", handleRoomData);
-  }, []);
 
   const sendMessage = (event) => {
     event.preventDefault();
     if (message) {
-      socket.emit("sendMessage", message, () => setMessage(""));
+      socket.emit("sendMessage", { name, room, message }, () => setMessage(""));
     }
   };
 
-  console.log(message, messages);
-  console.log(users);
   return (
     <div className="outerContainner">
       <div className="containner">

@@ -1,0 +1,84 @@
+html,
+body {
+    font-family: "Roboto", sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+#createUserRoot {
+    height: 100vh;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.createOuterContainer {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    height: 100vh;
+    align-items: center;
+    background-color: #1a1a1d;
+}
+
+.createInnerContainer {
+    width: 20%;
+}
+
+.createInput {
+    border-radius: 0;
+    padding: 15px 20px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.createHeading {
+    color: white;
+    font-size: 2.5em;
+    padding-bottom: 10px;
+    border-bottom: 2px solid white;
+}
+
+.createButton {
+    color: #fff !important;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: #2979ff;
+    padding: 20px;
+    border-radius: 5px;
+    display: inline-block;
+    border: none;
+    width: 100%;
+}
+
+.linkText {
+    color: #aaa;
+    font-size: 0.9em;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .createOuterContainer {
+        height: 100%;
+    }
+
+    .createInnerContainer {
+        width: 90%;
+    }
+}
+
+button:focus {
+    outline: 0;
+}
+
+/* styles.css */
+.hover-link {
+    cursor: pointer;
+    transition: color 0.4s;
+}
+
+.hover-link:hover {
+    color: rgb(245, 90, 90);
+}

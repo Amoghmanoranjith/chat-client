@@ -2,7 +2,7 @@ import React from "react";
 import "./TextContainer.css";
 
 function TextContainer({ users }) {
-  console.log("child", users);
+  // console.log("child", users);
   return (
     <div className="textContainer">
       <div>
