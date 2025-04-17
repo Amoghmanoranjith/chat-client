@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
-import "D:/Programming/wp/frontend/src/components/Join/Join.css"; // reuse existing styles
+import "../Join/Join.css"; // reuse existing styles
 
 const ENDPOINT = import.meta.env.VITE_BACKEND_URL;
 
