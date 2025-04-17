@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import {Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Join.css";
-import socket from "../socket";
 
 function Join() {
   const [userName, setUserName] = useState("");
@@ -10,24 +9,36 @@ function Join() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleJoin = (e) => {
-    socket.connect()
-    console.log(socket.id)
+  const handleJoin = async (e) => {
     e.preventDefault();
-
+  
     if (!userName || !password || !roomId) {
       setError("Please fill in all fields.");
       return;
     }
-    socket.emit("join", { userName, password, roomId }, (response) => {
-      if (typeof response === "string") {
-        setError(response); // Display server error (like "Incorrect password")
-      } else {
-        // All good
-        navigate(`/chat?name=${userName}&room=${roomId}`);
+  
+    try {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userName, password, roomId }),
+      });
+  
+      const data = await res.json();
+  
+      if (!res.ok) {
+        console.log(res)
+        setError(data.me || "Unknown error");
+        return;
       }
-    });
+  
+      navigate(`/chat?name=${userName}&room=${roomId}`);
+    } catch (err) {
+      setError("Server error. Try again later.");
+      console.error("Join error:", err);
+    }
   };
+  
 
   return (
     <div className="joinOuterContainer">

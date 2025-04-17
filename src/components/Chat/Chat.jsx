@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
 import "./Chat.css";
@@ -6,10 +6,10 @@ import InfoBar from "../InfoBar/InfoBar";
 import Input from "../Input/Input";
 import Messages from "../Messages/Messages";
 import TextContainer from "../TextContainer/TextContainer";
-import socket from "../socket";
+import { io } from "socket.io-client";
 
 function Chat() {
-  const [name, setName] = useState("");
+  const [userName, setUserName] = useState("");
   const [room, setRoom] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
@@ -17,35 +17,64 @@ function Chat() {
   const [role, setRole] = useState("")
   const location = useLocation();
   const ENDPOINT = import.meta.env.VITE_BACKEND_URL;
+  const socketRef = useRef(null);
+
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
-    setName(name);
+    setUserName(name);
     setRoom(room);
-    console.log("int chat.jsx",name)
-    const handleJoinMessage = (msg) => {
-      // console.log("Role assigned:", role);
-      // console.log("Previous messages:", messages);
-  
-      // setMessages(messages);
-      // optionally store role in state if needed
-      console.log(msg)
-    };
-    socket.on("joinMessage", handleJoinMessage)
+    socketRef.current = io(ENDPOINT, {
+      transports: ["websocket"],
+    });
 
+    // Connect the socket
+    socketRef.current.connect()
+    // Emit join
+    socketRef.current.emit("join", { userName: name, roomId:room }, (response) => {
+      if (typeof response === "string") {
+        console.error("Join error:", response);
+        return;
+      }
+      console.log("Joined room successfully.");
+    });
+
+    console.log("in chat.jsx", socketRef.current, name, room)
+    const handleJoinMessage = (msg) => {
+      console.log("Role assigned:", msg.role);
+      setMessages(msg.messages); // ✅ correctly assign initial messages
+    };
+
+    const handleMessage = (msg) => {
+      console.log("New incoming message:", messages);
+      setMessages(prevMessages => [...prevMessages, msg]); // ✅ append new message
+    };
+
+    socketRef.current.on("joinMessage", handleJoinMessage);
+    socketRef.current.on("message", handleMessage);
+
+    return () => {
+      socketRef.current.off("joinMessage", handleJoinMessage);
+      socketRef.current.off("message", handleMessage);
+    };
   }, [ENDPOINT, location.search]);
+
 
   const sendMessage = (event) => {
     event.preventDefault();
     if (message) {
-      socket.emit("sendMessage", { name, room, message }, () => setMessage(""));
+      const timestamp = new Date(); // current time
+      socketRef.current.emit("sendMessage", { userName, room, message, timestamp }, () => {
+        setMessage("");
+      });
     }
   };
+
 
   return (
     <div className="outerContainner">
       <div className="containner">
         <InfoBar room={room} />
-        <Messages messages={messages} name={name} />
+        <Messages messages={messages} name={userName} />
         <Input
           message={message}
           setMessage={setMessage}

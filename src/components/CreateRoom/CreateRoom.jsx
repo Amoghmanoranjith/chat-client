@@ -4,7 +4,6 @@ import { io } from "socket.io-client";
 import "D:/Programming/wp/frontend/src/components/Join/Join.css"; // reuse existing styles
 
 const ENDPOINT = import.meta.env.VITE_BACKEND_URL;
-const socket = io(ENDPOINT);
 
 function CreateRoom() {
   const [userName, setUserName] = useState("");
@@ -13,7 +12,7 @@ function CreateRoom() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleCreate = (e) => {
+  const handleCreate = async (e) => {
     e.preventDefault();
 
     if (!userName || !password || !roomId) {
@@ -21,13 +20,22 @@ function CreateRoom() {
       return;
     }
 
-    socket.emit("createRoom", { userName, password, roomId }, (response) => {
-      if (typeof response === "string") {
-        setError(response); // show error like "User not found" or "Room already exists"
-      } else {
-        navigate(`/chat?name=${userName}&room=${roomId}`);
+    try {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/room/create`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userName, password, roomId }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(res)
+        setError(data.me || "Unknown error");
+        return;
       }
-    });
+      navigate(`/chat?name=${userName}&room=${roomId}`);
+    } catch (error) {
+
+    }
   };
 
   return (
