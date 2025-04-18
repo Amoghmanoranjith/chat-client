@@ -12,7 +12,7 @@ export default function Register() {
   const handleRegister = async (e) => {
     try {
       e.preventDefault();
-      const res = await axios.post("http://localhost:5000/auth/register", { name, password });
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/auth/register`, { name, password });
       console.log(res)
       if (res.data.success) {
         alert("User registered! You can now join a room.");
