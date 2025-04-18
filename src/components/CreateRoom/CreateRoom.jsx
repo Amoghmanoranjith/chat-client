@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { io } from "socket.io-client";
-import "../Join/Join.css"
+import "../Join/Join.css"; // reuse existing styles
 
 const ENDPOINT = import.meta.env.VITE_BACKEND_URL;
 
