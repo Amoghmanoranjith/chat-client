@@ -44,14 +44,9 @@ export default function Register() {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <button className="createButton" type="submit" onClick={() => navigate("/join")}>
+          <button className="createButton" type="submit" onClick={() => navigate("/")}>
             Register
           </button>
-
-          <p className="linkText" onClick={() => navigate("/join")}>
-            Already have an account?{" "}
-            <span className="hover-link">Join a room</span>
-          </p>
         </div>
       </div>
     </form>

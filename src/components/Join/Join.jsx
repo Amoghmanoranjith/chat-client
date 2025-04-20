@@ -1,82 +1,72 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Join.css";
 
 function Join() {
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
   const [roomId, setRoomId] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleJoin = async (e) => {
-    e.preventDefault();
-  
-    if (!userName || !password || !roomId) {
+    e.preventDefault(); // Prevent form default reload
+
+    if (!roomId) {
       setError("Please fill in all fields.");
       return;
     }
-  
+
     try {
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/login`, {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/room/join`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userName, password, roomId }),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ roomId }),
       });
-  
+
       const data = await res.json();
-  
+
       if (!res.ok) {
-        console.log(res)
-        setError(data.me || "Unknown error");
+        setError(data.error || "Unknown error");
         return;
       }
-  
-      navigate(`/chat?name=${userName}&room=${roomId}`);
+
+      navigate(`/chat?name=${data.userName}&room=${roomId}&id=${data.userId}`);
     } catch (err) {
       setError("Server error. Try again later.");
       console.error("Join error:", err);
     }
   };
-  
 
   return (
     <div className="joinOuterContainer">
       <div className="joinInnerContainer">
         <h1 className="heading">Join</h1>
+        
+        <form onSubmit={handleJoin}>
+          <input
+            className="joinInput mt-20"
+            type="text"
+            placeholder="Room ID"
+            value={roomId}
+            onChange={(e) => setRoomId(e.target.value)}
+          />
 
-        <input
-          className="joinInput"
-          type="text"
-          placeholder="Username"
-          value={userName}
-          onChange={(e) => setUserName(e.target.value)}
-        />
-        <input
-          className="joinInput mt-20"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
-          className="joinInput mt-20"
-          type="text"
-          placeholder="Room ID"
-          value={roomId}
-          onChange={(e) => setRoomId(e.target.value)}
-        />
-
-        <button className="button mt-20" onClick={handleJoin}>
-          Join Room
-        </button>
+          <button className="button mt-20" type="submit">
+            Join Room
+          </button>
+        </form>
 
         <p className="linkText" onClick={() => navigate("/createroom")}>
           No chat room? <span className="hover-link">Create one</span>
         </p>
 
-
-        {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
+        {error && (
+          <p style={{ color: "red", marginTop: "10px" }}>
+            {error} — <span className="hover-link-error" onClick={() => navigate("/")}>Login again</span>
+          </p>
+        )}
       </div>
     </div>
   );

@@ -82,3 +82,12 @@ button:focus {
 .hover-link:hover {
     color: rgb(245, 90, 90);
 }
+
+.hover-link-error {
+    cursor: pointer;
+    transition: color 0.4s;
+}
+
+.hover-link-error:hover {
+    color: rgb(90, 111, 245);
+}

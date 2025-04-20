@@ -1,18 +1,17 @@
 import React from "react";
-// import closeIcon from "client-chatapp/src/icons/closeIcon.png";
-// import onlineIcon from "client-chatapp/src/icons/onlineIcon.png";
 import "./InfoBar.css";
-function InfoBar({ room }) {
+
+function InfoBar({ roomId, onExit }) {
   return (
     <div className="infoBar">
       <div className="leftInnerContainer">
         <h1>🟢</h1>
-        <h3>{room}</h3>
+        <h3>{roomId}</h3>
       </div>
       <div className="rightInnerContainer">
-        <a href="/">
+          <button onClick={onExit}>
           <h1>❌</h1>
-        </a>
+          </button>
       </div>
     </div>
   );
