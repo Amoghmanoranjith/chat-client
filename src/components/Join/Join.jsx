@@ -43,7 +43,7 @@ function Join() {
     <div className="joinOuterContainer">
       <div className="joinInnerContainer">
         <h1 className="heading">Join</h1>
-        
+
         <form onSubmit={handleJoin}>
           <input
             className="joinInput mt-20"
@@ -64,9 +64,13 @@ function Join() {
 
         {error && (
           <p style={{ color: "red", marginTop: "10px" }}>
-            {error} — <span className="hover-link-error" onClick={() => navigate("/")}>Login again</span>
+            {error}
+            {error !== "room not found" && (
+              <> — <span className="hover-link-error" onClick={() => navigate("/")}>Login again</span></>
+            )}
           </p>
         )}
+
       </div>
     </div>
   );

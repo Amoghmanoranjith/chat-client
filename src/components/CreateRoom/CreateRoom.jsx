@@ -7,6 +7,7 @@ const ENDPOINT = import.meta.env.VITE_BACKEND_URL;
 function CreateRoom() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [userId, setUserId] = useState("")
   const [roomId, setRoomId] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ function CreateRoom() {
   const handleCreate = async (e) => {
     e.preventDefault();
 
-    if (!userName || !password || !roomId) {
+    if (!roomId) {
       setError("Please fill in all fields.");
       return;
     }
@@ -22,40 +23,38 @@ function CreateRoom() {
     try {
       const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/room/create`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userName, password, roomId }),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ roomId }),
       });
-      const data = await res.json();
+
+      const data = await res.json().catch(() => ({}));
+
       if (!res.ok) {
-        console.log(res)
-        setError(data.me || "Unknown error");
+        if (res.status === 409) {
+          setError(data.message || "Room already exists. Try another.");
+        } else if (res.status === 500) {
+          setError("Server error. Please try again later.");
+        } else {
+          setError(data.message || "Unknown error occurred.");
+        }
         return;
       }
-      navigate(`/chat?name=${userName}&room=${roomId}`);
-    } catch (error) {
+      navigate(`/chat?name=${data.userName}&room=${data.roomId}&id=${data.userId}`);
 
+    } catch (error) {
+      console.error("Network error:", error);
+      setError("Unable to connect to server. Please check your internet.");
     }
+
   };
 
   return (
     <div className="joinOuterContainer">
       <div className="joinInnerContainer">
         <h1 className="heading">Create Room</h1>
-
-        <input
-          className="joinInput"
-          type="text"
-          placeholder="Username"
-          value={userName}
-          onChange={(e) => setUserName(e.target.value)}
-        />
-        <input
-          className="joinInput mt-20"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
         <input
           className="joinInput mt-20"
           type="text"
