@@ -50,7 +50,9 @@ function Chat() {
   }, [ENDPOINT, location.search]);
 
   const handleRoomExit = () => {
-    socketRef.current.emit("exit", { userName, userId, roomId });
+    socketRef.current.emit("exit", { userName, userId, roomId }, (response) => {
+      console.log(response);
+    });
   };
 
   const sendMessage = (event) => {
