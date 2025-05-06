@@ -1,0 +1,186 @@
+.createOuterContainer {
+    height: 100vh;
+    background-color: #1e1e1e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .createInnerContainer {
+    background-color: #2c2c2c;
+    padding: 40px;
+    border-radius: 12px;
+    width: 350px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  }
+  
+  .createHeading {
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  
+  .createInput {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #444;
+    border-radius: 6px;
+    background-color: #1e1e1e;
+    color: #fff;
+  }
+  
+  .createInput::placeholder {
+    color: #888;
+  }
+  
+  .createButton {
+    background-color: #2979ff;
+    color: white;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .createButton:hover {
+    background-color: #1c5fd3;
+  }
+  
+  .linkText {
+    color: #999;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .hover-link {
+    color: #2979ff;
+    cursor: pointer;
+  }
+  
+  .hover-link:hover {
+    text-decoration: underline;
+  }
+  
+  .login-container {
+    position: relative;
+    height: 100vh;
+    background: linear-gradient(135deg, #1e1e1e, #121212);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .login-box {
+    z-index: 5;
+    background-color: #1f1f1f;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.08);
+    width: 350px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .createInput {
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    background-color: #292929;
+    color: #fff;
+  }
+  
+  .createButton {
+    padding: 12px;
+    background-color: #4c8bf5;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .createButton:hover {
+    background-color: #3c76db;
+  }
+  
+  .linkText {
+    text-align: center;
+    cursor: pointer;
+    color: #ccc;
+  }
+  
+  .hover-link {
+    color: #4c8bf5;
+    text-decoration: underline;
+  }
+  
+  .bg-icon {
+    position: absolute;
+    opacity: 0.08;
+    pointer-events: none;
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .bg-icon.emoji {
+    top: 10%;
+    left: 5%;
+    width: 80px;
+  }
+  
+  .bg-icon.sticker {
+    bottom: 10%;
+    right: 8%;
+    width: 100px;
+  }
+  
+  .bg-icon.bubble {
+    top: 50%;
+    right: 15%;
+    width: 90px;
+  }
+  
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+
+  /* New floating chat bubbles */
+  .bg-icon.chat-bubble {
+    position: absolute;
+    opacity: 0.1;
+    pointer-events: none;
+    animation: float-bubble 8s ease-in-out infinite;
+  }
+  
+  .bg-icon.chat-bubble.small {
+    width: 50px;
+    top: 20%;
+    left: 10%;
+  }
+  
+  .bg-icon.chat-bubble.medium {
+    width: 80px;
+    bottom: 15%;
+    right: 20%;
+  }
+  
+  .bg-icon.chat-bubble.large {
+    width: 120px;
+    top: 40%;
+    left: 50%;
+  }
+  
+  @keyframes float-bubble {
+    0% { transform: translateY(0px) translateX(0px); }
+    50% { transform: translateY(-15px) translateX(10px); }
+    100% { transform: translateY(0px) translateX(0px); }
+  }

@@ -34,16 +34,14 @@ function CreateRoom() {
 
       if (!res.ok) {
         if (res.status === 409) {
-          setError(data.message || "Room already exists. Try another.");
-        } else if (res.status === 500) {
-          setError("Server error. Please try again later.");
+          setError("Room already exists. Please try a different ID.");
         } else {
           setError(data.message || "Unknown error occurred.");
         }
         return;
       }
-      navigate(`/chat?name=${data.userName}&room=${data.roomId}&id=${data.userId}`);
 
+      navigate(`/chat?name=${data.userName}&room=${data.roomId}&id=${data.userId}`);
     } catch (error) {
       console.error("Network error:", error);
       setError("Unable to connect to server. Please check your internet.");

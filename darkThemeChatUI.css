@@ -1,0 +1,228 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #121212;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Floating Background Elements */
+body::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+}
+
+body::after {
+  content: '';
+  position: absolute;
+  bottom: -50px;
+  right: -50px;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+  border-radius: 50%;
+  animation: float 8s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-20px) translateX(20px);
+  }
+}
+
+/* Redesigned Login Page */
+.login-container {
+  background: linear-gradient(135deg, #1e1e1e, #121212);
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-container h1 {
+  font-size: 3rem;
+  margin-bottom: 2.5rem;
+  color: #ffffff;
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);
+}
+
+.login-container input {
+  width: 100%;
+  padding: 1.2rem;
+  margin: 1rem 0;
+  border: none;
+  border-radius: 8px;
+  background: #2a2a2a;
+  color: #ffffff;
+  font-size: 1.1rem;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.login-container input:focus {
+  outline: none;
+  box-shadow: 0 0 12px #4caf50;
+  transform: scale(1.02);
+}
+
+.login-container button {
+  width: 100%;
+  padding: 1.2rem;
+  margin-top: 2rem;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(45deg, #4caf50, #81c784);
+  color: #ffffff;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-container button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.6);
+}
+
+/* Redesigned Chat UI */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  width: 100%;
+  max-width: 900px;
+  background: linear-gradient(135deg, #1e1e1e, #121212);
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+}
+
+.chat-header {
+  background: #2a2a2a;
+  padding: 1.8rem;
+  text-align: center;
+  font-size: 2rem;
+  color: #ffffff;
+  border-bottom: 1px solid #333333;
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background: linear-gradient(to bottom, #1e1e1e, #121212);
+}
+
+.chat-message {
+  padding: 1.2rem;
+  border-radius: 20px;
+  max-width: 70%;
+  word-wrap: break-word;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.chat-message.sent {
+  background: #4caf50;
+  align-self: flex-end;
+  color: #ffffff;
+  box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+}
+
+.chat-message.received {
+  background: #333333;
+  align-self: flex-start;
+  color: #ffffff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.chat-input-container {
+  display: flex;
+  padding: 1.8rem;
+  background: #2a2a2a;
+  border-top: 1px solid #333333;
+}
+
+.chat-input-container input {
+  flex: 1;
+  padding: 1.2rem;
+  border: none;
+  border-radius: 8px;
+  background: #333333;
+  color: #ffffff;
+  font-size: 1.1rem;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.chat-input-container input:focus {
+  outline: none;
+  box-shadow: 0 0 12px #4caf50;
+  transform: scale(1.02);
+}
+
+.chat-input-container button {
+  margin-left: 1.2rem;
+  padding: 1.2rem 2.5rem;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(45deg, #4caf50, #81c784);
+  color: #ffffff;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chat-input-container button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.6);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .chat-container {
+    height: 100vh;
+    border-radius: 0;
+  }
+
+  .login-container {
+    width: 90%;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

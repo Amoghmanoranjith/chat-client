@@ -1,21 +1,34 @@
+/* Info Bar Container */
 .infoBar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   background: #2979ff;
   border-radius: 4px 4px 0 0;
-  height: 60px;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Added subtle shadow for depth */
+  transition: background 0.3s ease; /* Smooth transition for background color */
+  cursor: pointer;
 }
 
+/* Info Bar hover effect */
+.infoBar:hover {
+  background: #1a73e8; /* Darken background color on hover */
+}
+
+/* Left section of the info bar */
 .leftInnerContainer {
   flex: 0.5;
   display: flex;
   align-items: center;
   margin-left: 5%;
   color: white;
+  font-weight: bold; /* Make text bold for emphasis */
+  font-size: 1.1em;
 }
 
+/* Right section of the info bar (for icons and actions) */
 .rightInnerContainer {
   display: flex;
   flex: 0.5;
@@ -23,6 +36,48 @@
   margin-right: 5%;
 }
 
+/* Icon style */
 .onlineIcon {
   margin-right: 5%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  transition: transform 0.2s ease; /* Smooth icon transition */
+}
+
+/* Hover effect on icon */
+.onlineIcon:hover {
+  transform: scale(1.2); /* Slight zoom on hover */
+}
+
+/* Mobile responsiveness */
+@media (min-width: 320px) and (max-width: 480px) {
+  .infoBar {
+    height: 50px; /* Reduce height for smaller screens */
+  }
+
+  .leftInnerContainer,
+  .rightInnerContainer {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .leftInnerContainer {
+    font-size: 1em; /* Adjust font size for mobile */
+  }
+
+  .rightInnerContainer {
+    flex: 0.4; /* Adjust flex for mobile screens */
+  }
+}
+
+/* Larger screen adjustments */
+@media (min-width: 1200px) {
+  .infoBar {
+    height: 70px; /* Increase height for larger screens */
+  }
+
+  .leftInnerContainer {
+    font-size: 1.2em; /* Slightly larger font for bigger screens */
+  }
 }

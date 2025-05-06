@@ -1,64 +1,113 @@
+/* General Styles */
 html,
 body {
     font-family: "Roboto", sans-serif;
     padding: 0;
     margin: 0;
+    background-color: #121212; /* Darker background for better contrast */
 }
 
+/* Ensure full height for the root element */
 #createUserRoot {
     height: 100vh;
 }
 
+/* Box-sizing rule for all elements */
 * {
     box-sizing: border-box;
 }
 
+/* Outer container styles for centering the content */
 .createOuterContainer {
     display: flex;
     justify-content: center;
-    text-align: center;
-    height: 100vh;
     align-items: center;
+    height: 100vh;
     background-color: #1a1a1d;
+    animation: fadeIn 1s ease-out; /* Fade-in effect on page load */
 }
 
+/* Inner container where the content is placed */
 .createInnerContainer {
     width: 20%;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out; /* Smooth transition */
 }
 
+/* Add hover effect to the inner container */
+.createInnerContainer:hover {
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Input field styles */
 .createInput {
-    border-radius: 0;
+    border-radius: 5px;
     padding: 15px 20px;
     width: 100%;
     margin-bottom: 15px;
+    border: 2px solid #ddd;
+    transition: border-color 0.3s ease;
 }
 
+/* Input focus effect */
+.createInput:focus {
+    border-color: #2979ff;
+    outline: none;
+}
+
+/* Heading style */
 .createHeading {
-    color: white;
+    color: #fff;
     font-size: 2.5em;
     padding-bottom: 10px;
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid #fff;
+    margin-bottom: 20px;
+    text-transform: uppercase;
 }
 
+/* Button styles */
 .createButton {
     color: #fff !important;
     text-transform: uppercase;
-    text-decoration: none;
     background: #2979ff;
     padding: 20px;
     border-radius: 5px;
     display: inline-block;
     border: none;
     width: 100%;
+    transition: background 0.3s ease, transform 0.1s ease;
+    cursor: pointer;
 }
 
+/* Hover effect for the button */
+.createButton:hover {
+    background: #1a73e8;
+    transform: translateY(-3px); /* Lift effect */
+}
+
+/* Button active effect */
+.createButton:active {
+    transform: scale(0.98); /* Slight shrink effect on click */
+}
+
+/* Link text styles */
 .linkText {
     color: #aaa;
     font-size: 0.9em;
     margin-top: 10px;
     cursor: pointer;
+    transition: color 0.3s ease;
 }
 
+/* Link hover effect */
+.linkText:hover {
+    color: #fff;
+}
+
+/* Media queries for responsiveness */
 @media (min-width: 320px) and (max-width: 480px) {
     .createOuterContainer {
         height: 100%;
@@ -69,25 +118,68 @@ body {
     }
 }
 
+/* Focus outline for buttons */
 button:focus {
     outline: 0;
 }
 
-/* styles.css */
+/* Hover link effects */
 .hover-link {
     cursor: pointer;
-    transition: color 0.4s;
+    transition: color 0.4s ease, transform 0.3s ease;
 }
 
+/* Hover effect for links */
 .hover-link:hover {
     color: rgb(245, 90, 90);
+    transform: scale(1.05); /* Slight zoom on hover */
 }
 
+/* Hover link effects for error messages */
 .hover-link-error {
     cursor: pointer;
-    transition: color 0.4s;
+    transition: color 0.4s ease, transform 0.3s ease;
 }
 
+/* Hover effect for error links */
 .hover-link-error:hover {
     color: rgb(90, 111, 245);
+    transform: scale(1.05);
+}
+
+/* Animation for fading in the outer container */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+/* Animation for fading in the inner container */   
+@keyframes fadeInInner {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+/* Animation for fading in the button */        
+@keyframes fadeInButton {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+/* Animation for fading in the input fields */
+@keyframes fadeInInput {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
